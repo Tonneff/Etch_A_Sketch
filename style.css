@@ -1,16 +1,16 @@
 #container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 100%);
-    grid-template-rows: repeat(auto-fit, 100%);
+    width: 70vw;
+    height: 70vw;
+    max-width: 70vh;
+    max-height: 70vh;
+     
+  }
+  
+  #container div {
+    background-color: red;
     border-style: solid;
     border-color: black;
-    width: 500px;
-    height: 500px;
-}
-
-#container div {
-    border-style: solid;
-    border-color: black;
-    display: inline-block;
-    vertical-align: top;
-}
+    height:100%;
+    width:100%;
+  }
