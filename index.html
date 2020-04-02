@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <link rel = "stylesheet" href = "style.css">
+</head>
+<body>
+    <h1>Etch A Sketch</h1>
+    <div id="container">
+    </div>
+</body>
+<script>
+    function makeGrid(size) {
+        const container =  document.getElementById("container");
+
+        for(let i = 0; i < size; i++){
+            for(let j = 0; j < size; j++){
+                var div = document.createElement("div");
+                div.style.width = "25px";
+                div.style.height = "25px";
+                div.style.backgroundColor = "red";
+                container.appendChild(div);
+            }
+            var jump = document.createElement("br");
+            container.appendChild(jump);
+        }
+    }
+
+    const GRID_SIZE = 16;
+    makeGrid(GRID_SIZE);
+</script>
