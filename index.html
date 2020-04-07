@@ -1,27 +1,95 @@
 <!DOCTYPE html>
 <head>
-   <!-- <link rel = "stylesheet" href = "style.css">  -->
+    <link rel = "stylesheet" href = "style.css">
 </head>
 <body>
     <h1>Etch A Sketch</h1>
+    <div id="buttonsDiv">
+        <button id="newGridBtn">New Grid</button>
+        <button id="blackModeBtn">Black Mode</button>
+        <button id="colorModeBtn">Color Mode</button>
+        <button id="shadeModeBtn">Shade Mode</button>
+    </div>
     <div id="container">
     </div>
 </body>
 <script>
+    var toggle = 0;
+
+    const GRID_SIZE = 16;
+    const newGridBtn = document.getElementById("newGridBtn");
+    const blackModeBtn = document.getElementById("blackModeBtn");
+    const colorModeBtn = document.getElementById("colorModeBtn");
+    const shadeModeBtn = document.getElementById("shadeModeBtn");
+    const container =  document.getElementById("container");
+
+    newGridBtn.addEventListener('click', makeNewGrid);
+
+    blackModeBtn.addEventListener('click', () => toggle = 0);
+    colorModeBtn.addEventListener('click', () => toggle = 1);
+    shadeModeBtn.addEventListener('click', () => toggle = 2);
+
+    function makeNewGrid() {
+        var size = parseInt(prompt("Please, insert the grid size:", 16));
+        
+        deleteGrid();
+
+        makeGrid(size);
+    }
+
+    function deleteGrid() {
+        container.innerHTML = "";
+    }
+
     function makeGrid(size) {
-        const container =  document.getElementById("container");
+
         container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
         container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-				for(let i = 0; i < size; i ++){
+
+		for(let i = 0; i < size; i ++){
+
         	for(let j = 0; j < size; j++){
-              var square = document.createElement("div");
-              container.appendChild(square);
+
+              var tile = document.createElement("div");
+              tile.classList.add("tile");
+              tile.addEventListener('mouseover', colorTile);
+              container.appendChild(tile);
+            
               }
-         	//let jump = document.createElement("br");
-         	//container.appendChild(jump);
+         	
         }
- 		}
-    const GRID_SIZE = 100;
+ 	}
+
+    function colorTile() {
+       
+        if(toggle == 0){
+            this.style.backgroundColor = "black";
+           
+        } else if(toggle == 1){
+           this.style.backgroundColor = getRandomColor();
+         } else if(toggle == 2) {
+             if(this.id == ""){
+                 this.setAttribute("id", "90")
+                 this.style.filter = `brightness(90%)`;
+             } else if(this.id !== ""){
+                 let newId = this.getAttribute("id") - 10;
+                 this.id = newId;
+                 console.log(`${newId}`);
+                 this.style.filter = `brightness(${newId}%)`;
+             }
+         }
+    }
+
+    function getRandomColor() {
+        var hex = ['1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'];
+        var color = "#"
+        for(let i = 0; i < 6; i++){
+            color += hex[Math.floor(Math.random()*hex.length)];
+        }
+        return color;
+    }
     
     makeGrid(GRID_SIZE);
+
+
 </script>
